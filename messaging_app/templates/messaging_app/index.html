@@ -8,29 +8,40 @@
     <body>
 		<h1>Messaging App</h1>
 
-        <table>
-		<tr>
-		<th style="text-align:left">Username: <td>{{user.username}} 
-		</table>
+        <div style="height: 50px;">
 
+            <table>
+            <tr>
+            <th style="text-align:left">Username: <td>{{user.username}} 
+            </table>
 
-        <form action='logout/' method="POST">
-			{% csrf_token %}
-            <input type="submit" value="Logout"/>
-        </form>
-		
-        <h2>Your Messages</h2>
+            <div style="width: 100px; float:left; margin:10px">
+                    <form action='logout/' method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Logout"/>
+                    </form>
+            </div>
+            <div style="width: 100px; float:left; margin:10px">
+                    <form action='settings/' method="POST">
+                        <!-- {% csrf_token %} -->
+                        <input type="submit" value="Settings"/>
+                    </form>
+            </div>
+        </div>  
 
-		{% for msg in msgs %}
+        <div>
+            <h2>Your Messages</h2>
 
-		<i>From {{msg.source.username}} to {{msg.target.username}}</i></br>
-		{{msg.content|safe}}
-		</br>
-		</br>
+            {% for msg in msgs %}
 
-		{% endfor %}
+            <i>From {{msg.source.username}} to {{msg.target.username}}</i></br>
+            {{msg.content|safe}}
+            </br>
+            </br>
 
+            {% endfor %}
 
+        
         <h2>Send a message</h2>
 
         <form action='add/' method="POST" enctype="multipart/form-data">
@@ -42,11 +53,10 @@
             {% endfor %}
             </select><br/>
 
-			<textarea name="content" cols="40" rows="5"></textarea><br/>
+			<textarea name="content" cols="40" rows="3"></textarea><br/>
             <input type="submit" value="Send"/>
         </form>
+    </div>
     </body>
 
-
-    </body>
 </html>

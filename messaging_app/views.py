@@ -59,23 +59,32 @@ def addView(request):
         # Msg.objects.create(source=request.user, target=target, 
         #     content=request.POST.get('content'))
         # sql="INSERT INTO messaging_app_msg (source_id,target_id,content,time) VALUES (?, ?, ?, ?)"
-        sql="INSERT INTO messaging_app_msg VALUES (?,?,?,?)"
-        vals=[(request.user.id), (target.id), (request.POST.get('content')),datetime.now()]
+        # sql="INSERT INTO messaging_app_msg VALUES (?,?,?,?)"
+        
+        # vals=[(request.user.id), (target.id), (request.POST.get('content')),datetime.now()]
 
         # app_models = apps.get_app_config('messaging_app').get_models()
         # for m in app_models:
         #     print(m)
-        print(Msg._meta.db_table)
+        # print(Msg._meta.db_table)
+        sql="INSERT INTO messaging_app_msg (time,content,source_id,target_id) VALUES " + "('" + str(datetime.now()) + "','" + str(request.POST.get('content')) + "','" + str(request.user.id) +"','" + str(target.id) + "');"
         connection = create_connection('db.sqlite3')
         cursor=connection.cursor()
-        cursor.execute(sql,vals)
+        cursor.execute(sql)
         connection.commit()
         connection.close()
+
         query=Msg.objects.raw("SELECT * FROM messaging_app_msg")
         for q in query:
-            print(q.content)
+            print("time ",q.time)
+            print("content ",q.content)
+            print("source_id ",q.source_id)
+            print("target_id ",q.target_id)
+            
 
         return redirect('/')
 
 
 
+def settingsView(request):
+    return render(request,'messaging_app/settings')
