@@ -8,7 +8,7 @@
     <body>
 		<h1>Messaging App</h1>
 
-        <div style="height: 50px;">
+        <div style="height: 70px;">
 
             <table>
             <tr>
@@ -22,9 +22,9 @@
                     </form>
             </div>
             <div style="width: 100px; float:left; margin:10px">
-                    <form action='settings/' method="POST">
+                    <form action='/account/{{user.id}}' method="GET">
                         <!-- {% csrf_token %} -->
-                        <input type="submit" value="Settings"/>
+                        <input type="submit" value="Account settings"/>
                     </form>
             </div>
         </div>  

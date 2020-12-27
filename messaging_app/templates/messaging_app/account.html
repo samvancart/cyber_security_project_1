@@ -1,0 +1,16 @@
+
+        <h1>Account Settings</h1>
+
+        <div style="height: 50px;">
+            <table>
+            <tr>
+            <th style="text-align:left">Username: <td>{{user.username}} 
+            </table>
+
+            <form action='/delete/{{user.id}}' method="POST">
+                {% csrf_token %}
+                <input type="submit" value="Delete account"/>
+            </form>
+            <a href="/">Home</a>
+        </div>  
+
