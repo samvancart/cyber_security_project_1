@@ -57,12 +57,18 @@ def signupView(request):
 def addView(request):
         if len(User.objects.all())>1:
             target = User.objects.get(username=request.POST.get('to'))
-            sql="INSERT INTO messaging_app_msg (time,content,source_id,target_id) VALUES " + "('" + str(datetime.now()) + "','" + str(request.POST.get('content')) + "','" + str(request.user.id) +"','" + str(target.id) + "');"
+            sql="INSERT INTO messaging_app_msg (time,content,source_id,target_id) VALUES " + "('" + str(datetime.now()) + "','" +request.POST.get('content') + "','" +str(request.user.id) + "','" + str(target.id) + "');"
             connection = create_connection('db.sqlite3')
             cursor=connection.cursor()
             cursor.execute(sql)
             connection.commit()
             connection.close()
+        query=Msg.objects.raw('SELECT * FROM messaging_app_msg')
+        for q in query:
+            print('target: ', q.target_id)
+            print('content: ', q.content)
+            print('source: ', q.source_id)
+            print('time: ', q.time)
 
         return redirect('/')
 
