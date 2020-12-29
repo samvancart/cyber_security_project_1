@@ -63,12 +63,6 @@ def addView(request):
             cursor.execute(sql)
             connection.commit()
             connection.close()
-        query=Msg.objects.raw('SELECT * FROM messaging_app_msg')
-        for q in query:
-            print('target: ', q.target_id)
-            print('content: ', q.content)
-            print('source: ', q.source_id)
-            print('time: ', q.time)
 
         return redirect('/')
 
